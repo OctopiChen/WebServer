@@ -50,5 +50,37 @@ namespace WebServer.Services
             }
             return result;
         }
+
+        /// <summary>
+        /// CardViewModel資料驗證
+        /// </summary>
+        /// <param name="card"></param>
+        /// <returns></returns>
+        public IEnumerable<ValidatorMessage> ValidateCard(Card? card)
+        {
+            var result = new List<ValidatorMessage>();
+
+            if (card == null)
+            {
+                result.Add(new ValidatorMessage
+                {
+                    Text = $"卡片異常",
+                });
+            }
+            else
+            {
+                //檢查卡號是否重覆
+                var cardNoDupes = _WebServerDBContext.Card.Where(s => (string.IsNullOrEmpty(card.ID) || s.ID.ToLower() != card.ID.ToLower()) && s.CardNo.ToLower() == card.CardNo.Trim().ToLower()).Select(s => s);
+                if (cardNoDupes.Any())
+                {
+                    result.Add(new ValidatorMessage
+                    {
+                        ElementID = "Card.CardNo",
+                        Text = $"卡號重覆",
+                    });
+                }
+            }
+            return result;
+        }
     }
 }

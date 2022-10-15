@@ -29,7 +29,9 @@
                     const del = `<div class="d-inline-block"><a class="btn btn-xs btn-danger btn-space" data-toggle="tooltip" title="@(_localizer["Delete"])" href="${sBaseURL}/Delete/${row.ID}" data-id="${row.ID}"><i class="far fa-trash-alt fa-lg"></i></a></div>`;
 
                     return `<div class="d-flex align-items-center">${details}${blank}${edit}${blank}${del}</div>`;
-                }
+                },
+
+                
             });
         });
     </script>

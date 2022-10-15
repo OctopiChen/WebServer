@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using WebServer;
+using WebServer.Hubs;
 using WebServer.Models.WebServerDB;
 using WebServer.Services;
-
+//解決使用CSVHelper,中文亂碼問題
+Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -106,6 +109,7 @@ builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<IViewRenderService, ViewRenderService>();
 builder.Services.AddScoped<WebServer.Filters.AuthorizeFilter>();
 builder.Services.AddScoped<JWTService>();
+builder.Services.AddSignalR();
 var app = builder.Build();
 
 ServiceActivator.Configure(app.Services);
@@ -148,5 +152,11 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.MapHub<ChatHub>("/chatHub");
+app.MapHub<NotificationHub>("/NotificationHub");
+using (var serviceScope = ServiceActivator.GetScope())
+{
+    SiteService? siteService = (SiteService?)serviceScope.ServiceProvider.GetService(typeof(SiteService));
+    siteService?.Init().Wait();
+}
 app.Run();
