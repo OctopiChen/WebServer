@@ -42,5 +42,6 @@ namespace WebServer.Models.WebServerDB
         [Display(Name = "Birthday")]
         [Required(ErrorMessage = "BirthdayRequired")]
         public string? Birthday { get; set; }
+
     }
 }
