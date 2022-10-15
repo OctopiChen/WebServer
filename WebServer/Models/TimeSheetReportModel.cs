@@ -16,5 +16,6 @@ namespace WebServer.Models
         [Name("下班")]
         [NameIndex(3)]
         public string? PunchOutTime { get; set; }
+
     }
 }
