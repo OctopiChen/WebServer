@@ -17,8 +17,9 @@
 4.出勤紀錄表
 >可瀏覽刷卡紀錄及匯出PDF或CSV檔
 ![出勤紀錄表](https://user-images.githubusercontent.com/33541519/197340122-821e1f26-073e-4cba-a3d0-e17be436f235.jpg)
-5.多語系
 
+5.多語系
+>可切換繁體中文、簡體中文、英文語系
 `簡體中文`
 ![多語系簡中](https://user-images.githubusercontent.com/33541519/197340367-9dbbd82c-2b60-4d95-a4ff-f8431760d623.png)
 
